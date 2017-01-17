@@ -1,7 +1,7 @@
 Bubble sort
 ===========
 
-Simple method of comparing two adiacent elements and changing them in place. Sort ends when after next run of algoritm there is no change.
+Simple method of comparing two adjacent elements and changing them in place. Sort ends when after next run of algoritm there is no change.
 
 # Pseudocode
 
@@ -25,3 +25,7 @@ Algorithm starts at the beginning of the array and then compares every 2 items i
 The worst time is when array is sorted but in reversed order so algorithm has to check every item:
 
 ![worst_time](http://latex.codecogs.com/gif.latex?%5Cfn_phv%20O%20%28n%29)
+
+Based on that complexity of bubble sort is:
+
+![complexity](http://latex.codecogs.com/gif.latex?%5Cfn_phv%20%5CTheta%20%28n%5E2%29)
