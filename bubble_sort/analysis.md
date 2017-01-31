@@ -1,7 +1,7 @@
 Bubble sort
 ===========
 
-Simple method of comparing two adjacent elements and changing them in place. Sort ends when after next run of algoritm there is no change.
+Simple method of comparing two adjacent elements and changing them in place. Sort ends when after next run of algorithm there is no change.
 
 # Pseudocode
 
@@ -9,7 +9,7 @@ Simple method of comparing two adjacent elements and changing them in place. Sor
 bubble_sort(array):
   n = array.length
   while n > 1:
-    for i in array.lenght - 1:
+    for i in array.length - 1:
       if array[i] > array[i + 1]:
         swap(array[i], array[i+1])
     n = n -1
@@ -24,7 +24,7 @@ Algorithm starts at the beginning of the array and then compares every 2 items i
 
 The worst time is when array is sorted but in reversed order so algorithm has to check every item:
 
-![worst_time](http://latex.codecogs.com/gif.latex?%5Cfn_phv%20O%20%28n%29)
+![worst_time](http://latex.codecogs.com/gif.latex?O%28n%5E2%29)
 
 Based on that complexity of bubble sort is:
 
