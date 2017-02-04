@@ -10,7 +10,7 @@ decks.
 
 ```
 insertion_sort(array):
-  for i=1 in array.length:
+  for i = 1 to array.length:
     key = array[i]
     j = i - 1
     while j >= 0 and array[i] > array[j]:
