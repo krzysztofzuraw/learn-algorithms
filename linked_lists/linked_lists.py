@@ -11,21 +11,24 @@ class LinkedList(object):
     def __init__(self, head=None):
         self.length = 0
         self.head = head
+        self.node_list = []
 
     def __iter__(self):
-        self.count_length(self.head)
+        self._add_backward_to_node_list(self.head)
         return self
 
-    def count_length(self, head):
-        while head:
-            self.length += 1
-            return self.count_length(head.next_node)
+    def _add_backward_to_node_list(self, first_node):
+        if first_node is None:
+            return
+        head = first_node
+        tail = first_node.next_node
+        self.node_list.append(head)
+        return self.add_backward_to_node_list(tail)
 
     def __next__(self):
-        if self.length <= 0:
-            raise StopIteration
-        self.length -= 1
-        return self.head
+        while self.node_list:
+            return self.node_list.pop(0)
+        raise StopIteration
 
 
 def test_node_is_empty():
@@ -50,9 +53,10 @@ def test_linked_list_with_one_node():
     linked_list = LinkedList(head=node)
     assert [item for item in linked_list] == [node]
 
-# def test_linked_list_with_two_nodes():
-#     first_node = Node(data='first_node')
-#     second_node = Node(data='second_node')
-#     first_node.next_node = second_node
-#     linked_list = LinkedList(head=first_node)
-#     assert [item for item in linked_list] == [first_node, second_node]
+
+def test_linked_list_with_two_nodes():
+    first_node = Node(data='first_node')
+    second_node = Node(data='second_node')
+    first_node.next_node = second_node
+    linked_list = LinkedList(head=first_node)
+    assert [item for item in linked_list] == [first_node, second_node]
