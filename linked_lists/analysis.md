@@ -1,8 +1,8 @@
 Linked lists
 ============
 
-This is data structure that take advantage of references. Linked lists are made up of nodes. Each
-node contains reference to the next node in the list. What is more, each node contains a data.
+This is the data structure that takes advantage of references. Linked lists are made up of nodes. Each
+node contains a reference to the next node in the list. What is more, each node contains a data.
 
 A linked list is:
 
@@ -15,11 +15,16 @@ A linked list is:
 structure node:
   next_node = none
   data = none
-  
+
 structure linked_list:
   length = 0
   head = none
 ```
+
+# Complexity
+
+If you want to index linked list you have to go through every element. Based on that indexing complexity is Θ(n). The same is for accessing - Θ(n). Insertion only needs
+to look at list once so Θ(1) for insertion. Deleting is similar Θ(1).
 
 # References
 
