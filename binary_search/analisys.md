@@ -26,18 +26,12 @@ def binary_search(array, target):
 # Complexity
 
 The best time complexity is when a middle element is the target of the algorithm. In such
-case binary search needs to run only once:
-
-![best time](http://latex.codecogs.com/gif.latex?%5COmega%20%281%29)
+case binary search needs to run only once - O(1)
 
 As the algorithm is using divide and conquer technique every time is make the wrong
 guess the possibilities are cut in half. The algorithm stops after there is
 no more array to divide so array length is 1. Binary search also needs to make
 first divide so in total n + 1 guesses. In can be written in terms of worst
-time complexity:
+time complexity - Ω(log(n))
 
-![worst time](http://latex.codecogs.com/gif.latex?O%20%28logn%29)
-
-Based on that complexity of binary search is:
-
-![binary search complex](http://latex.codecogs.com/gif.latex?%5CTheta%20%28logn%29)
+Based on that complexity of binary search is - Θ(log(n))
