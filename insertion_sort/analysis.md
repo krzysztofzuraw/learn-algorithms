@@ -29,15 +29,9 @@ array is sorted and algorithm
 goes into next item and compare it
 with already sorted ones. Based
 on that the best time complexity
-is:
-
-![best_time](http://latex.codecogs.com/gif.latex?%5Cfn_phv%20%5COmega%20%28n%29)
+is: Ω(n)
 
 The worst time is when array is sorted but in reversed order so algorithm has to
-check every item:
+check every item: O(n^2)
 
-![worst_time](http://latex.codecogs.com/gif.latex?O%28n%5E2%29)
-
-Based on that complexity of insertion sort is:
-
-![complexity](http://latex.codecogs.com/gif.latex?%5Cfn_phv%20%5CTheta%20%28n%5E2%29)
+Based on that complexity of insertion sort is: Θ(n^2)

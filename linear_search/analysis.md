@@ -21,15 +21,9 @@ and then iterates every one until
 if found searched item.
 
 In case the searched element is at index zero algorithm terminates
-and return index so this is the best time complexity:
-
-![best_time](http://latex.codecogs.com/gif.latex?%5COmega%20%281%29)
+and return index so this is the best time complexity: Ω(1)
 
 The worst time is when searched element is at the end of array. In
-such case linear search has to iterate every element in array:
+such case linear search has to iterate every element in array: O(n)
 
-![worst_time](http://latex.codecogs.com/gif.latex?O%28n%29)
-
-Based on that complexity of linear search is:
-
-![complexity](http://latex.codecogs.com/gif.latex?%5CTheta%20%28n%29)
+Based on that complexity of linear search is: Θ(n)
