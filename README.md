@@ -7,3 +7,4 @@ My work connected with algorithms & data structures
 4. [Binary search](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/binary_search)
 5. [Linked lists](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/linked_lists)
 6. [Hash tables](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/hash_tables)
+7. [Merge sort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/merge_sort)
