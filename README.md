@@ -9,3 +9,4 @@ My work connected with algorithms/ data structures & design patterns
 6. [Hash tables](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/hash_tables)
 7. [Merge sort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/merge_sort)
 8. [Array](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/array)
+9. [Stack](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/stack)
