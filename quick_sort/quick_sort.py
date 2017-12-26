@@ -14,9 +14,12 @@ def partition(a):
 
 
 def quick_sort(a):
+    if len(a) <= 1:
+        return a
     a, q = partition(a)
-    return quick_sort(a[0: q])
-    return quick_sort(a[q + 1: len(a) - 1])
+    first_part = quick_sort(a[0: q])
+    second_part = quick_sort(a[q: len(a)])
+    return first_part + second_part
 
 
 def test_partition():
@@ -29,3 +32,11 @@ def test_partition_more_complex():
 
 def test_quicksort():
     assert quick_sort([12, 7, 14, 9, 10, 11]) == [7, 9, 10, 11, 12, 14]
+
+
+def test_quicksort_one_element():
+    assert quick_sort([1]) == [1]
+
+
+def test_quicksort_more_complex():
+    assert quick_sort([9, 7, 5, 11, 12, 2, 14, 3, 10, 6]) == [2, 3, 5, 6, 7, 9, 10, 11, 12, 14]
