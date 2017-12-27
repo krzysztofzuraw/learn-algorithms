@@ -1,11 +1,10 @@
-Merge sort
-==========
+# Merge sort
 
 This sorting algorithm use divide and conquer technique. It means that first array of items to sort is divided into two pieces, then algorithm
 starts to divide pieces until they contain only one piece. Then sorting
 step occurs which propagates itself and returned array is sorted.
 
-# Pseudocode
+## Pseudocode
 
 ```
 merge_sort(array):
@@ -25,7 +24,7 @@ merge_sort(array):
             else:
                 sorted_array += item from first_array
                 remove item from first_array
-        
+
         if first_array or second_array is empty:
             sorted_array += first_array or second_array
             exit loop
@@ -33,7 +32,7 @@ merge_sort(array):
     return sorted_array
 ```
 
-# Complexity
+## Complexity
 
 As algorithm needs to sort two arrays made from the division. 
 One element array can be sorted in fixed time. 
