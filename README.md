@@ -1,4 +1,5 @@
 # learn-algorithms-data-structures-design-patterns
+
 My work connected with algorithms/ data structures & design patterns
 
 1. [Bubble sort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/bubble_sort)
@@ -10,3 +11,4 @@ My work connected with algorithms/ data structures & design patterns
 7. [Merge sort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/merge_sort)
 8. [Array](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/array)
 9. [Stack](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/stack)
+10. [Quicksort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/quick_sort)
