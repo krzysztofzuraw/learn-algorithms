@@ -1,4 +1,4 @@
-# learn-cs
+# Learn Computer Science
 
 As I never end CS studies I decicded to learn algorithms, data strucutres and design patterns on my own.
 This is my work:
