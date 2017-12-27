@@ -1,6 +1,7 @@
-# learn-algorithms-data-structures-design-patterns
+# learn-cs
 
-My work connected with algorithms/ data structures & design patterns
+As I never end CS studies I decicded to learn algorithms, data strucutres and design patterns on my own.
+This is my work:
 
 1. [Bubble sort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/bubble_sort)
 2. [Insertion sort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/insertion_sort)
