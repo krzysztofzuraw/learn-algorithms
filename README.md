@@ -1,6 +1,6 @@
 # Learn Computer Science
 
-As I never end CS studies I decicded to learn algorithms, data strucutres and design patterns on my own.
+As I never end CS studies I decided to learn algorithms, data structures and design patterns on my own.
 This is my work:
 
 1. [Bubble sort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/bubble_sort)
