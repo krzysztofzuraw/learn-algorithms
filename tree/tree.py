@@ -25,7 +25,28 @@ class Node:
 
     @property
     def degree(self):
-        return self.left_child + self.right_child
+        if self.left_child and self.right_child:
+            return 2
+        elif self.left_child or self.right_child:
+            return 1
+        return 0
+
+
+class Tree:
+    def __init__(self, list_of_nodes=None):
+        self.list_of_nodes = list_of_nodes
+
+    def edge(self, start, end):
+        if start.left_child == end or start.right_child == end:
+            return True
+        elif end.children[0] == start or end.children[1] == start:
+            return True
+        return False
+
+    def path(self, start, end):
+        if self.edge(start, end):
+            self.path(start.left_child, end.left_child)
+        return self.start
 
 
 def test_root_node():
@@ -96,3 +117,62 @@ def test_degree():
     root_node.right_child = right_child_node
     assert root_node.degree == 2
     assert left_child_node.degree == 0
+
+
+def test_degree_more_complex():
+    """
+        (1)
+         |
+        (2)
+    """
+    root_node = Node(value=1)
+    child_node = Node(parent=root_node, value=2)
+    root_node.left_child = child_node
+    assert root_node.degree == 1
+
+
+def test_edge():
+    """
+        (1)
+         |
+        (2)
+    """
+    root_node = Node(value=1)
+    child_node = Node(parent=root_node, value=2)
+    root_node.left_child = child_node
+    tree = Tree([root_node, child_node])
+    assert tree.edge(root_node, child_node) is True
+    assert tree.edge(child_node, root_node) is True
+
+
+def test_edge_more_complex():
+    """
+        (1)
+       /   \
+     (2)   (3)
+    """
+    root_node = Node(value=1)
+    left_child_node = Node(parent=root_node, value=2)
+    right_child_node = Node(parent=root_node, value=3)
+    root_node.left_child = left_child_node
+    root_node.right_child = right_child_node
+    tree = Tree([root_node, left_child_node, right_child_node])
+    assert tree.edge(left_child_node, right_child_node) is False
+    assert tree.edge(root_node, right_child_node) is True
+
+
+def test_path():
+    """
+        (1)
+         |
+        (2)
+         |
+        (3)
+    """
+    root_node = Node(value=1)
+    child_node = Node(parent=root_node, value=2)
+    last_node = Node(parent=child_node, value=3)
+    root_node.left_child = child_node
+    child_node.right_child = last_node
+    tree = Tree([root_node, child_node])
+    assert tree.path(root_node, last_node) == [child_node]
