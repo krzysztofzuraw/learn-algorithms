@@ -5,6 +5,9 @@ class Node:
         self.right_child = right_child
         self.value = value
 
+    def __repr__(self):
+        return f'Node with value: {self.value}'
+
     @property
     def children(self):
         return self.left_child, self.right_child
@@ -44,9 +47,15 @@ class Tree:
         return False
 
     def path(self, start, end):
-        if self.edge(start, end):
-            self.path(start.left_child, end.left_child)
-        return self.start
+        if not start or start == end:
+            yield end
+            raise StopIteration
+
+        yield start
+        if self.edge(start, start.left_child):
+            yield from self.path(start.left_child, end)
+        elif self.edge(start, start.right_child):
+            yield from self.path(start.right_child, end)
 
 
 def test_root_node():
@@ -161,18 +170,45 @@ def test_edge_more_complex():
     assert tree.edge(root_node, right_child_node) is True
 
 
-def test_path():
+def test_path_for_left_child():
     """
         (1)
          |
         (2)
          |
         (3)
+         |
+        (4)
     """
     root_node = Node(value=1)
     child_node = Node(parent=root_node, value=2)
     last_node = Node(parent=child_node, value=3)
+    four_node = Node(parent=last_node, value=4)
     root_node.left_child = child_node
+    child_node.left_child = last_node
+    last_node.left_child = four_node
+    tree = Tree([root_node, child_node, last_node, four_node])
+    assert [i for i in tree.path(root_node, last_node)] == [root_node, child_node, last_node]
+    assert [i for i in tree.path(root_node, four_node)] == [root_node, child_node, last_node, four_node]
+
+
+def test_path_for_right_child():
+    """
+        (1)
+         |
+        (2)
+         |
+        (3)
+         |
+        (4)
+    """
+    root_node = Node(value=1)
+    child_node = Node(parent=root_node, value=2)
+    last_node = Node(parent=child_node, value=3)
+    four_node = Node(parent=last_node, value=4)
+    root_node.right_child = child_node
     child_node.right_child = last_node
-    tree = Tree([root_node, child_node])
-    assert tree.path(root_node, last_node) == [child_node]
+    last_node.right_child = four_node
+    tree = Tree([root_node, child_node, last_node, four_node])
+    assert [i for i in tree.path(root_node, last_node)] == [root_node, child_node, last_node]
+    assert [i for i in tree.path(root_node, four_node)] == [root_node, child_node, last_node, four_node]
