@@ -53,15 +53,17 @@ class Tree:
         return False
 
     def path(self, start, end):
+        full_path = []
         if not start or start == end:
-            yield end
-            raise StopIteration
+            full_path.append(end)
+            return full_path
 
-        yield start
+        full_path.append(start)
         if self.edge(start, start.left_child):
-            yield from self.path(start.left_child, end)
-        elif self.edge(start, start.right_child):
-            yield from self.path(start.right_child, end)
+            full_path.extend(self.path(start.left_child, end))
+        if self.edge(start, start.right_child):
+            full_path.extend(self.path(start.right_child, end))
+        return full_path if start and end in full_path else []
 
 
 @pytest.fixture
@@ -71,14 +73,14 @@ def create_tree():
            /   \
          (7)   (5)
         /  \     \
-      (2)  (6)   (9)
+      (1)  (6)   (9)
            / \   /
         (5)(11) (4)
     """
     root_node = Node(value=2)
     seventh_node = Node(parent=root_node, value=7)
     fifth_node = Node(parent=root_node, value=5)
-    second_node = Node(parent=seventh_node, value=2)
+    second_node = Node(parent=seventh_node, value=1)
     sixth_node = Node(parent=seventh_node, value=6)
     nineth_node = Node(parent=fifth_node, value=9)
     second_fifth_node = Node(parent=sixth_node, value=5)
@@ -93,8 +95,8 @@ def create_tree():
 
     fifth_node.right_child = nineth_node
 
-    sixth_node.right_child = second_fifth_node
-    sixth_node.left_child = eleventh_node
+    sixth_node.right_child = eleventh_node
+    sixth_node.left_child = second_fifth_node
 
     nineth_node.right_child = fourth_node
 
@@ -105,183 +107,83 @@ def create_tree():
     ])
 
 
-def test_root_node():
-    """
-            (1)
-            /  \
-          (3)  (2)
-    """
-    root_node = Node(value=1)
-    left_child_node = Node(parent=root_node, value=2)
-    right_child_node = Node(parent=root_node, value=3)
-    root_node.left_child = left_child_node
-    root_node.right_child = right_child_node
+def test_root_node(create_tree):
+    nodes = create_tree.list_of_nodes
+    root_node = nodes.pop(0)
+    left_child_node = nodes.pop(0)
+    right_child_node = nodes.pop(0)
     assert root_node.left_child == left_child_node
     assert root_node.right_child == right_child_node
 
 
-def test_children():
-    """
-            (2)
-             |
-            (5)
-    """
-    root_node = Node(value=2)
-    left_child_node = Node(parent=root_node, value=5)
-    root_node.left_child = left_child_node
-    assert root_node.children == (left_child_node, None)
+def test_children(create_tree):
+    nodes = create_tree.list_of_nodes
+    root_node = nodes.pop(0)
+    left_child_node = nodes.pop(0)
+    right_child_node = nodes.pop(0)
+    assert root_node.children == (left_child_node, right_child_node)
 
 
-def test_sibling():
-    """
-            (2)
-           /  \
-         (5)  (7)
-    """
-    root_node = Node(value=2)
-    left_child_node = Node(parent=root_node, value=5)
-    right_child_node = Node(parent=root_node, value=7)
-    root_node.left_child = left_child_node
-    root_node.right_child = right_child_node
+def test_sibling(create_tree):
+    nodes = create_tree.list_of_nodes
+    left_child_node = nodes[1]
+    right_child_node = nodes[2]
     assert left_child_node.sibling == right_child_node
     assert right_child_node.sibling == left_child_node
 
 
-def test_leaf():
-    """
-        (1)
-         |
-        (2)
-    """
-    root_node = Node(value=1)
-    left_child_node = Node(parent=root_node, value=2)
-    root_node.left_child = left_child_node
-    assert left_child_node.is_leaf is True
+def test_leaf(create_tree):
+    nodes = create_tree.list_of_nodes
+    root_node = nodes[0]
+    last_node = nodes[-1]
+
+    assert last_node.is_leaf is True
     assert root_node.is_leaf is False
 
 
-def test_degree():
-    """
-        (1)
-       /   \
-     (2)   (3)
-    """
-    root_node = Node(value=1)
-    left_child_node = Node(parent=root_node, value=2)
-    right_child_node = Node(parent=root_node, value=3)
-    root_node.left_child = left_child_node
-    root_node.right_child = right_child_node
+def test_degree(create_tree):
+    nodes = create_tree.list_of_nodes
+    root_node = nodes[0]
+    nine_node = nodes[-4]
+    last_node = nodes[-1]
     assert root_node.degree == 2
-    assert left_child_node.degree == 0
+    assert last_node.degree == 0
+    assert nine_node.degree == 1
 
 
-def test_degree_more_complex():
-    """
-        (1)
-         |
-        (2)
-    """
-    root_node = Node(value=1)
-    child_node = Node(parent=root_node, value=2)
-    root_node.left_child = child_node
-    assert root_node.degree == 1
+def test_edge(create_tree):
+    tree = create_tree
+    assert tree.edge(tree.list_of_nodes[0], tree.list_of_nodes[1]) is True
+    assert tree.edge(tree.list_of_nodes[1], tree.list_of_nodes[0]) is True
 
 
-def test_edge():
-    """
-        (1)
-         |
-        (2)
-    """
-    root_node = Node(value=1)
-    child_node = Node(parent=root_node, value=2)
-    root_node.left_child = child_node
-    tree = Tree([root_node, child_node])
-    assert tree.edge(root_node, child_node) is True
-    assert tree.edge(child_node, root_node) is True
+def test_edge_more_complex(create_tree):
+    tree = create_tree
+    assert tree.edge(tree.list_of_nodes[1], tree.list_of_nodes[2]) is False
+    assert tree.edge(tree.list_of_nodes[0], tree.list_of_nodes[2]) is True
 
 
-def test_edge_more_complex():
-    """
-        (1)
-       /   \
-     (2)   (3)
-    """
-    root_node = Node(value=1)
-    left_child_node = Node(parent=root_node, value=2)
-    right_child_node = Node(parent=root_node, value=3)
-    root_node.left_child = left_child_node
-    root_node.right_child = right_child_node
-    tree = Tree([root_node, left_child_node, right_child_node])
-    assert tree.edge(left_child_node, right_child_node) is False
-    assert tree.edge(root_node, right_child_node) is True
+def test_edge_non_existing(create_tree):
+    tree = create_tree
+    assert tree.edge(tree.list_of_nodes[1], tree.list_of_nodes[-1]) is False
 
 
-def test_edge_non_existing():
-    """
-        (1)
-    """
-    root_node = Node(value=1)
-    tree = Tree([root_node])
-    assert tree.edge(root_node, None) is False
+def test_path_for_left_child(create_tree):
+    tree = create_tree
+    assert tree.path(tree.list_of_nodes[0], tree.list_of_nodes[3]) == [
+        tree.list_of_nodes[0], tree.list_of_nodes[1], tree.list_of_nodes[3]
+    ]
 
 
-def test_path_for_left_child():
-    """
-        (1)
-         |
-        (2)
-         |
-        (3)
-         |
-        (4)
-    """
-    root_node = Node(value=1)
-    child_node = Node(parent=root_node, value=2)
-    last_node = Node(parent=child_node, value=3)
-    four_node = Node(parent=last_node, value=4)
-    root_node.left_child = child_node
-    child_node.left_child = last_node
-    last_node.left_child = four_node
-    tree = Tree([root_node, child_node, last_node, four_node])
-    assert [i for i in tree.path(root_node, last_node)] == [root_node, child_node, last_node]
-    assert [i for i in tree.path(root_node, four_node)] == [root_node, child_node, last_node, four_node]
+def test_path_for_right_child(create_tree):
+    tree = create_tree
+    assert tree.path(tree.list_of_nodes[0], tree.list_of_nodes[5]) == [
+        tree.list_of_nodes[0], tree.list_of_nodes[2], tree.list_of_nodes[5]
+    ]
 
 
-def test_path_for_right_child():
-    """
-        (1)
-         |
-        (2)
-         |
-        (3)
-         |
-        (4)
-    """
-    root_node = Node(value=1)
-    child_node = Node(parent=root_node, value=2)
-    last_node = Node(parent=child_node, value=3)
-    four_node = Node(parent=last_node, value=4)
-    root_node.right_child = child_node
-    child_node.right_child = last_node
-    last_node.right_child = four_node
-    tree = Tree([root_node, child_node, last_node, four_node])
-    assert [i for i in tree.path(root_node, last_node)] == [root_node, child_node, last_node]
-    assert [i for i in tree.path(root_node, four_node)] == [root_node, child_node, last_node, four_node]
-
-
-def test_path_for_both_left_and_right():
-    """
-        (1)
-        /
-       (2)
-         \
-         (3)
-    """
-    root_node = Node(value=1)
-    second_node = Node(parent=root_node, value=2)
-    third_node = Node(parent=second_node, value=3)
-    root_node.left_child = second_node
-    second_node.right_child = third_node
-    tree = Tree([root_node, second_node, third_node])
-    assert [i for i in tree.path(root_node, third_node)] == [root_node, second_node, third_node]
+def test_path_for_both_left_and_right(create_tree):
+    tree = create_tree
+    assert tree.path(tree.list_of_nodes[1], tree.list_of_nodes[6]) == [
+        tree.list_of_nodes[1], tree.list_of_nodes[4], tree.list_of_nodes[6]
+    ]
