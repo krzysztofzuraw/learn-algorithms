@@ -13,3 +13,4 @@ This is my work:
 8. [Array](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/array)
 9. [Stack](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/stack)
 10. [Quicksort](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/quick_sort)
+11. [Tree](https://github.com/krzysztofzuraw/learn-algorithms/tree/master/tree)
